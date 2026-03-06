@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Teste de Desempenho Masculino</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+background:#050505;
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+overflow-x:hidden;
+}
+
+/* PARTICULAS */
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
+}
+
+/* CONTAINER */
+
+.container{
+width:95%;
+max-width:550px;
+background:#0d0d0d;
+padding:30px;
+border-radius:18px;
+box-shadow:0 0 30px rgba(255,0,0,0.25);
+animation:fadeIn .6s;
+}
+
+/* TITULOS */
+
+h1{
+color:#ff2a2a;
+text-align:center;
+margin-bottom:10px;
+}
+
+.sub{
+text-align:center;
+color:#ccc;
+margin-bottom:25px;
+}
+
+.neon-line{
+width:100%;
+height:1px;
+background:linear-gradient(90deg,transparent,red,transparent);
+margin:20px 0;
+}
+
+/* BOTÕES */
+
+.btn{
+width:100%;
+padding:16px;
+border:none;
+border-radius:12px;
+font-size:16px;
+margin:8px 0;
+cursor:pointer;
+transition:.3s;
+}
+
+.primary{
+background:#ff0000;
+color:white;
+box-shadow:0 0 15px rgba(255,0,0,.6);
+animation:pulse 2s infinite;
+}
+
+.primary:hover{
+transform:scale(1.05);
+box-shadow:0 0 25px red;
+}
+
+.option{
+background:#1a1a1a;
+color:#fff;
+}
+
+.option:hover{
+background:#ff0000;
+}
+
+/* PROGRESSO */
+
+.progress{
+width:100%;
+height:10px;
+background:#222;
+border-radius:10px;
+overflow:hidden;
+margin-bottom:20px;
+}
+
+.bar{
+height:100%;
+width:0%;
+background:#ff0000;
+transition:.4s;
+}
+
+/* RESULT */
+
+.result{
+display:none;
+}
+
+/* PROVA SOCIAL */
+
+.testimonial{
+background:#141414;
+padding:15px;
+border-radius:10px;
+margin:10px 0;
+font-size:14px;
+}
+
+/* PREÇO */
+
+.price{
+text-align:center;
+margin:25px 0;
+}
+
+.old{
+text-decoration:line-through;
+color:#888;
+font-size:22px;
+}
+
+.new{
+color:#ffe600;
+font-size:36px;
+font-weight:bold;
+}
+
+/* CONTADOR */
+
+.timer{
+text-align:center;
+font-size:20px;
+color:#ffe600;
+margin-bottom:20px;
+}
+
+/* POPUP */
+
+.popup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.9);
+display:flex;
+justify-content:center;
+align-items:center;
+display:none;
+}
+
+.popup-box{
+background:#111;
+padding:30px;
+border-radius:12px;
+text-align:center;
+}
+
+@keyframes pulse{
+0%{transform:scale(1)}
+50%{transform:scale(1.04)}
+100%{transform:scale(1)}
+}
+
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(20px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="particles"></canvas>
+
+<div class="container">
+
+<div id="start">
+
+<h1>Como anda sua vida sexual?</h1>
+
+<p class="sub">
+Responda o teste rápido e descubra se seu desempenho está no nível ideal ou se você pode melhorar muito mais.
+</p>
+
+<div class="neon-line"></div>
+
+<button class="btn primary" onclick="startQuiz()">
+Começar Agora
+</button>
+
+</div>
+
+<div id="quiz" style="display:none">
+
+<div class="progress">
+<div class="bar" id="bar"></div>
+</div>
+
+<h2 id="question"></h2>
+
+<div id="answers"></div>
+
+</div>
+
+<div class="result" id="result">
+
+<h1>Seu Resultado</h1>
+
+<p id="diagnostic"></p>
+
+<div class="neon-line"></div>
+
+<p>
+A boa notícia é que existem técnicas simples que podem melhorar seu controle, confiança e resistência.
+</p>
+
+<div class="timer">
+Oferta especial termina em: <span id="count">05:00</span>
+</div>
+
+<div class="price">
+<div class="old">De R$59,99</div>
+<div class="new">R$9,99</div>
+</div>
+
+<button class="btn primary"
+onclick="window.location.href='https://pay.kiwify.com.br/rIQaeZg'">
+Quero melhorar meu desempenho sexual
+</button>
+
+<div class="neon-line"></div>
+
+<h3>Depoimentos</h3>
+
+<div class="testimonial">
+“Eu durava menos de 1 minuto. Depois das técnicas do ebook já consegui passar de 30 minutos. Mudou muito minha confiança.” – Carlos, 28 anos
+</div>
+
+<div class="testimonial">
+“Achei que era mais um conteúdo da internet, mas os exercícios realmente funcionam. Recomendo.” – Rafael, 32 anos
+</div>
+
+<div class="testimonial">
+“O teste inicial abriu minha mente. Descobri que meu problema era ansiedade.” – João, 25 anos
+</div>
+
+<div class="neon-line"></div>
+
+</div>
+
+</div>
+
+<div class="popup" id="popup">
+<div class="popup-box">
+<h2>Espere!</h2>
+<p>Seu diagnóstico já está pronto. Quer ver antes de sair?</p>
+<button class="btn primary" onclick="closePopup()">Continuar</button>
+</div>
+</div>
+
+<script>
+
+/* QUIZ */
+
+const questions=[
+{
+q:"Quanto tempo você costuma durar durante a relação?",
+a:[
+["Menos de 1 minuto",3],
+["1 a 3 minutos",2],
+["5 minutos ou mais",1]
+]
+},
+
+{
+q:"Você sente ansiedade antes da relação?",
+a:[
+["Sempre",3],
+["Às vezes",2],
+["Raramente",1]
+]
+},
+
+{
+q:"Você perde o controle rápido quando está muito excitado?",
+a:[
+["Sim",3],
+["Às vezes",2],
+["Não",1]
+]
+},
+
+{
+q:"Você consegue controlar sua respiração durante a relação?",
+a:[
+["Não",3],
+["Mais ou menos",2],
+["Sim",1]
+]
+},
+
+{
+q:"Você já tentou técnicas para melhorar o controle?",
+a:[
+["Nunca",3],
+["Algumas vezes",2],
+["Sim",1]
+]
+},
+
+{
+q:"Sua confiança na cama hoje é:",
+a:[
+["Baixa",3],
+["Média",2],
+["Alta",1]
+]
+}
+
+]
+
+let current=0
+let score=0
+
+function startQuiz(){
+document.getElementById("start").style.display="none"
+document.getElementById("quiz").style.display="block"
+showQuestion()
+}
+
+function showQuestion(){
+
+let q=questions[current]
+
+document.getElementById("question").innerText=q.q
+
+let ans=document.getElementById("answers")
+ans.innerHTML=""
+
+q.a.forEach(option=>{
+
+let btn=document.createElement("button")
+btn.className="btn option"
+btn.innerText=option[0]
+
+btn.onclick=()=>{
+score+=option[1]
+current++
+updateBar()
+
+if(current<questions.length){
+showQuestion()
+}else{
+showResult()
+}
+
+}
+
+ans.appendChild(btn)
+
+})
+
+}
+
+function updateBar(){
+let percent=(current/questions.length)*100
+document.getElementById("bar").style.width=percent+"%"
+}
+
+function showResult(){
+
+document.getElementById("quiz").style.display="none"
+document.getElementById("result").style.display="block"
+
+let text=""
+
+if(score>=15){
+text="Seu perfil indica ANSIEDADE ALTA. Provavelmente sua mente acelera o processo. Técnicas de respiração e controle mental podem transformar completamente seu desempenho."
+}
+
+else if(score>=10){
+text="Seu perfil indica SENSIBILIDADE ALTA. Técnicas de pausa e controle de estímulo podem aumentar muito seu tempo."
+}
+
+else{
+text="Seu perfil indica CONTROLE MODERADO. Com exercícios de fortalecimento e técnicas corretas você pode evoluir ainda mais."
+}
+
+document.getElementById("diagnostic").innerText=text
+
+startTimer()
+
+}
+
+/* TIMER */
+
+function startTimer(){
+
+let time=300
+
+setInterval(()=>{
+
+time--
+
+let m=Math.floor(time/60)
+let s=time%60
+
+document.getElementById("count").innerText=
+`${m}:${s<10?"0":""}${s}`
+
+},1000)
+
+}
+
+/* POPUP SAIDA */
+
+document.addEventListener("mouseleave",()=>{
+document.getElementById("popup").style.display="flex"
+})
+
+function closePopup(){
+document.getElementById("popup").style.display="none"
+}
+
+/* PARTICULAS */
+
+const canvas=document.getElementById("particles")
+const ctx=canvas.getContext("2d")
+
+canvas.width=window.innerWidth
+canvas.height=window.innerHeight
+
+let particles=[]
+
+for(let i=0;i<60;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2
+})
+}
+
+function draw(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height)
+
+ctx.fillStyle="red"
+
+particles.forEach(p=>{
+
+ctx.beginPath()
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2)
+ctx.fill()
+
+p.y+=0.3
+
+if(p.y>canvas.height){
+p.y=0
+}
+
+})
+
+requestAnimationFrame(draw)
+
+}
+
+draw()
+
+</script>
+
+</body>
+</html>
